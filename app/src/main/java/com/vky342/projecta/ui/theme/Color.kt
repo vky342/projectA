@@ -17,3 +17,5 @@ val ReceiptIconPin = Color(0xFF0BAAAA)
 val InventoryIconPin = Color(0xFFE41F64)
 
 val GreyeHome = Color(0xFF181818)
+
+val navbarGreye = Color(47,47,47)
