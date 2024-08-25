@@ -10,11 +10,14 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.Place
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -36,6 +39,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.vky342.projecta.R
 import com.vky342.projecta.ui.theme.Greye
+import com.vky342.projecta.ui.theme.navbarGreye
 
 @Composable
 fun HomeScreen (navController: NavController) {
@@ -87,7 +91,7 @@ fun HomeScreenPreview () {
                     .fillMaxWidth()
                     .fillMaxHeight(0.3f)) {
 
-                    Card (shape = RoundedCornerShape(12), colors = CardDefaults.cardColors(containerColor = Color.Black), modifier = Modifier.fillMaxSize()) {
+                    Card (elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),shape = RoundedCornerShape(12), colors = CardDefaults.cardColors(containerColor = Color.Black), modifier = Modifier.fillMaxSize()) {
                         Card (shape = RoundedCornerShape(12), modifier = Modifier
                             .padding(8.dp)
                             .fillMaxSize()) {
@@ -95,6 +99,71 @@ fun HomeScreenPreview () {
                         }
                     }
 
+                }
+                Box (modifier = Modifier
+                    .align(Alignment.CenterHorizontally)
+                    .fillMaxWidth()
+                    .fillMaxHeight(0.4f)) {
+
+                    Row (modifier = Modifier
+                        .fillMaxWidth()
+                        .fillMaxHeight(0.7f)
+                        .align(Alignment.Center)){
+
+                        Box (modifier = Modifier
+                            .fillMaxHeight()
+                            .weight(1f)){
+                            Card (modifier = Modifier
+                                .height((height.value * 0.08).dp)
+                                .width((height.value * 0.08).dp)
+                                .align(Alignment.Center), shape = CircleShape, colors = CardDefaults.cardColors().copy(containerColor = navbarGreye)) {
+                                Box (modifier = Modifier.fillMaxSize()){
+                                    Icon(modifier = Modifier
+                                        .fillMaxSize(0.95f)
+                                        .align(Alignment.Center),tint = Color.Cyan,imageVector = Icons.Outlined.Info, contentDescription = "")
+
+                                }
+                            }
+
+                            Text(text = "info", fontSize = 18.sp, color = Color.Cyan, modifier = Modifier.align(Alignment.BottomCenter))
+
+                        }
+                        Box (modifier = Modifier
+                            .fillMaxHeight()
+                            .weight(1f)){
+                            Card (modifier = Modifier
+                                .height((height.value * 0.08).dp)
+                                .width((height.value * 0.08).dp)
+                                .align(Alignment.Center), shape = CircleShape,colors = CardDefaults.cardColors().copy(containerColor = navbarGreye)) {
+                                Box (modifier = Modifier.fillMaxSize()){
+                                    Image(modifier = Modifier
+                                        .fillMaxSize(0.8f)
+                                        .align(Alignment.Center), contentScale = ContentScale.FillBounds,painter = painterResource(id = R.drawable.car_icon), contentDescription = "")
+                                }
+                            }
+                            Text(text = "help", fontSize = 18.sp, color = Color.Cyan, modifier = Modifier.align(Alignment.BottomCenter))
+                        }
+                        Box (modifier = Modifier
+                            .fillMaxHeight()
+                            .weight(1f)){
+                            Card (modifier = Modifier
+                                .height((height.value * 0.08).dp)
+                                .width((height.value * 0.08).dp)
+                                .align(Alignment.Center), shape = CircleShape,colors = CardDefaults.cardColors().copy(containerColor = navbarGreye)) {
+                                Box (modifier = Modifier.fillMaxSize()){
+
+                                    Image(modifier = Modifier.fillMaxSize(0.8f)
+                                        .align(Alignment.Center), contentScale = ContentScale.FillBounds,painter = painterResource(id = R.drawable.complain_icon), contentDescription = "")
+                                }
+
+                            }
+
+                            Text(text = "complain", fontSize = 18.sp, color = Color.Cyan, modifier = Modifier.align(Alignment.BottomCenter))
+
+                        }
+
+                    }
+                    
                 }
             }
         }
