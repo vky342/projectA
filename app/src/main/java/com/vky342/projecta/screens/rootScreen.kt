@@ -1,32 +1,21 @@
 package com.vky342.projecta.screens
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountCircle
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material.icons.outlined.Edit
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material.icons.outlined.Settings
-import androidx.compose.material.icons.outlined.ShoppingCart
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -34,27 +23,21 @@ import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Shapes
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.vky342.projecta.R
 import com.vky342.projecta.graphs.Graph
 import com.vky342.projecta.graphs.RootNavigationGraph
 import com.vky342.projecta.ui.theme.navbarGreye
@@ -73,16 +56,18 @@ fun RootScreen (navController: NavHostController = rememberNavController(), modi
 fun BottomBar(navController: NavHostController){
     val (height,width) = LocalConfiguration.current.run { screenHeightDp.dp to screenWidthDp.dp }
     val topPadding = height.value * 0.15
-    val IconHeight = topPadding/3
 
-    var HomeIcon = Icons.Outlined.Home
-    var HomeIconColor = Color.Black
+    val HomeIcon = Icons.Outlined.Home
+    var HomeIconColor = Color.White
+    var HomebackgroundColor = navbarGreye
 
-    var AccountIcon = Icons.Outlined.Person
-    var AccountColor = Color.Black
+    val ProfileIcon = Icons.Outlined.Person
+    var ProfileColor = Color.White
+    var ProfilebackgroundColor = navbarGreye
 
-    var Transicon = Icons.Outlined.Settings
-    var TransColor = Color.Black
+    val SettingIcon = Icons.Outlined.Settings
+    var SettingColor = Color.White
+    var SettingBackgroundColor = navbarGreye
 
 
     val navBackStackEntry by navController.currentBackStackEntryAsState()
@@ -90,16 +75,16 @@ fun BottomBar(navController: NavHostController){
 
     fun colorFilling(){
         if (currentDestination?.parent?.route == Graph.HOME){
-            HomeIcon = Icons.Filled.Home
             HomeIconColor = Color.Black
+            HomebackgroundColor = Color.White
         }
-        if (currentDestination?.parent?.route == Graph.PROFILE) {
-            AccountIcon = Icons.Filled.Person
-            AccountColor = Color.Black
+        if (currentDestination?.route == Graph.PROFILE) {
+            ProfileColor = Color.Black
+            ProfilebackgroundColor = Color.White
         }
-        if (currentDestination?.parent?.route == Graph.SETTING) {
-            Transicon = Icons.Filled.Settings
-            TransColor = Color.Black
+        if (currentDestination?.route == Graph.SETTING) {
+            SettingColor = Color.Black
+            SettingBackgroundColor = Color.White
         }
     }
 
@@ -128,33 +113,49 @@ fun BottomBar(navController: NavHostController){
                         .fillMaxHeight(0.85f)
                         .align(Alignment.Center)){
 
-                        Card(modifier = Modifier
-                            .padding(horizontal = 3.dp, vertical = 3.dp)
+
+                        Box (modifier = Modifier
                             .fillMaxSize()
-                            .weight(1f), shape = CircleShape, colors = CardDefaults.cardColors(containerColor = navbarGreye)) {
-                            Box (modifier = Modifier.fillMaxSize()){
-                                IconButton(modifier = Modifier.align(Alignment.Center),onClick = { /*TODO*/ }) {
-                                    Icon(modifier = Modifier.padding(2.dp).fillMaxSize(),tint = Color.White,imageVector = Icons.Outlined.Home, contentDescription = "")
+                            .weight(1f)) {
+                            Card(modifier = Modifier
+                                .fillMaxSize(0.9f)
+                                .align(Alignment.Center), shape = CircleShape, colors = CardDefaults.cardColors(containerColor = HomebackgroundColor)) {
+                                Box (modifier = Modifier.fillMaxSize()){
+                                    IconButton(modifier = Modifier.align(Alignment.Center),onClick = { navController.navigate(Graph.HOME)}) {
+                                        Icon(modifier = Modifier
+                                            .padding(2.dp)
+                                            .fillMaxSize(),tint = HomeIconColor,imageVector = HomeIcon, contentDescription = "")
+                                    }
                                 }
                             }
                         }
-                        Card(modifier = Modifier
-                            .padding(horizontal = 3.dp, vertical = 3.dp)
+
+                        Box (modifier = Modifier
                             .fillMaxSize()
-                            .weight(1f), shape = CircleShape, colors = CardDefaults.cardColors(containerColor = navbarGreye)) {
-                            Box (modifier = Modifier.fillMaxSize()){
-                                IconButton(modifier = Modifier.align(Alignment.Center),onClick = { /*TODO*/ }) {
-                                    Icon(modifier = Modifier.padding(2.dp).fillMaxSize(),tint = Color.White,imageVector = Icons.Outlined.Person, contentDescription = "")
+                            .weight(1f)) {
+                            Card(modifier = Modifier
+                                .fillMaxSize(0.9f)
+                                .align(Alignment.Center), shape = CircleShape, colors = CardDefaults.cardColors(containerColor = ProfilebackgroundColor)) {
+                                Box (modifier = Modifier.fillMaxSize()){
+                                    IconButton(modifier = Modifier.align(Alignment.Center),onClick = { navController.navigate(Graph.PROFILE) }) {
+                                        Icon(modifier = Modifier
+                                            .padding(2.dp)
+                                            .fillMaxSize(),tint = ProfileColor,imageVector = ProfileIcon, contentDescription = "")
+                                    }
                                 }
                             }
                         }
-                        Card(modifier = Modifier
-                            .padding(horizontal = 3.dp, vertical = 3.dp)
-                            .fillMaxSize()
-                            .weight(1f), shape = CircleShape, colors = CardDefaults.cardColors(containerColor = navbarGreye)) {
-                            Box (modifier = Modifier.fillMaxSize()){
-                                IconButton(modifier = Modifier.align(Alignment.Center),onClick = { /*TODO*/ }) {
-                                    Icon(modifier = Modifier.padding(2.dp).fillMaxSize(),tint = Color.White,imageVector = Icons.Outlined.Settings, contentDescription = "")
+
+                        Box (modifier = Modifier.fillMaxSize().weight(1f)) {
+                            Card(modifier = Modifier
+                                .fillMaxSize(0.9f)
+                                .align(Alignment.Center), shape = CircleShape, colors = CardDefaults.cardColors(containerColor = SettingBackgroundColor)) {
+                                Box (modifier = Modifier.fillMaxSize()){
+                                    IconButton(modifier = Modifier.align(Alignment.Center),onClick = { navController.navigate(Graph.SETTING)}) {
+                                        Icon(modifier = Modifier
+                                            .padding(2.dp)
+                                            .fillMaxSize(),tint = SettingColor, imageVector = SettingIcon, contentDescription = "")
+                                    }
                                 }
                             }
                         }

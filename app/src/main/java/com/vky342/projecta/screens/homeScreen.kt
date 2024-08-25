@@ -10,10 +10,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -28,6 +25,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.draw.paint
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
@@ -38,7 +36,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.vky342.projecta.R
-import com.vky342.projecta.ui.theme.Greye
 import com.vky342.projecta.ui.theme.navbarGreye
 
 @Composable
@@ -116,7 +113,9 @@ fun HomeScreenPreview () {
                             Card (modifier = Modifier
                                 .height((height.value * 0.08).dp)
                                 .width((height.value * 0.08).dp)
-                                .align(Alignment.Center), shape = CircleShape, colors = CardDefaults.cardColors().copy(containerColor = navbarGreye)) {
+                                .align(Alignment.Center),
+                                elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
+                                shape = CircleShape, colors = CardDefaults.cardColors().copy(containerColor = navbarGreye)) {
                                 Box (modifier = Modifier.fillMaxSize()){
                                     Icon(modifier = Modifier
                                         .fillMaxSize(0.95f)
@@ -134,7 +133,9 @@ fun HomeScreenPreview () {
                             Card (modifier = Modifier
                                 .height((height.value * 0.08).dp)
                                 .width((height.value * 0.08).dp)
-                                .align(Alignment.Center), shape = CircleShape,colors = CardDefaults.cardColors().copy(containerColor = navbarGreye)) {
+                                .align(Alignment.Center),
+                                elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
+                                shape = CircleShape,colors = CardDefaults.cardColors().copy(containerColor = navbarGreye)) {
                                 Box (modifier = Modifier.fillMaxSize()){
                                     Image(modifier = Modifier
                                         .fillMaxSize(0.8f)
@@ -149,10 +150,13 @@ fun HomeScreenPreview () {
                             Card (modifier = Modifier
                                 .height((height.value * 0.08).dp)
                                 .width((height.value * 0.08).dp)
-                                .align(Alignment.Center), shape = CircleShape,colors = CardDefaults.cardColors().copy(containerColor = navbarGreye)) {
+                                .align(Alignment.Center),
+                                elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
+                                shape = CircleShape,colors = CardDefaults.cardColors().copy(containerColor = navbarGreye)) {
                                 Box (modifier = Modifier.fillMaxSize()){
 
-                                    Image(modifier = Modifier.fillMaxSize(0.8f)
+                                    Image(modifier = Modifier
+                                        .fillMaxSize(0.8f)
                                         .align(Alignment.Center), contentScale = ContentScale.FillBounds,painter = painterResource(id = R.drawable.complain_icon), contentDescription = "")
                                 }
 
@@ -165,6 +169,37 @@ fun HomeScreenPreview () {
                     }
                     
                 }
+                val brush = Brush.radialGradient(listOf(Color.Cyan, Color.Transparent))
+                Box (modifier = Modifier
+                    .fillMaxSize(0.85f)
+                    .align(Alignment.CenterHorizontally)) {
+                    Card (modifier = Modifier
+                        .height((height.value * 0.27).dp)
+                        .width((height.value * 0.27).dp)
+                        .align(Alignment.Center)
+                        .background(brush, shape = CircleShape),
+                        shape = CircleShape,
+                        colors = CardDefaults.cardColors().copy(containerColor = Color.Transparent)) {
+                        Box (modifier = Modifier
+                            .fillMaxSize()
+                            .clipToBounds()
+                            .background(color = Color.Transparent)) {
+                            Card (modifier = Modifier
+                                .height((height.value * 0.18).dp)
+                                .width((height.value * 0.18).dp)
+                                .align(Alignment.Center), elevation = CardDefaults.cardElevation(defaultElevation = 2.5.dp),colors = CardDefaults.cardColors().copy(containerColor = Color.Cyan),shape = CircleShape) {
+                                
+                                Box (modifier = Modifier
+                                    .fillMaxSize()
+                                    .background(color = Color.Transparent)){
+                                    Text(text = "SOS", fontSize = 45.sp, color = Color.Black, fontWeight = FontWeight(300), modifier = Modifier.align(Alignment.Center))
+                                }
+                                
+                            }
+                        }
+                    }
+                }
+
             }
         }
 
