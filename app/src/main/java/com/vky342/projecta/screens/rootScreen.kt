@@ -35,6 +35,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
@@ -121,7 +122,10 @@ fun BottomBar(navController: NavHostController){
                                 .fillMaxSize(0.9f)
                                 .align(Alignment.Center), shape = CircleShape, colors = CardDefaults.cardColors(containerColor = HomebackgroundColor)) {
                                 Box (modifier = Modifier.fillMaxSize()){
-                                    IconButton(modifier = Modifier.align(Alignment.Center),onClick = { navController.navigate(Graph.HOME)}) {
+                                    IconButton(modifier = Modifier.align(Alignment.Center),onClick = { navController.navigate(Graph.HOME){
+                                        popUpTo(navController.graph.findStartDestination().id)
+                                        launchSingleTop = true
+                                    } }) {
                                         Icon(modifier = Modifier
                                             .padding(2.dp)
                                             .fillMaxSize(),tint = HomeIconColor,imageVector = HomeIcon, contentDescription = "")
@@ -137,7 +141,11 @@ fun BottomBar(navController: NavHostController){
                                 .fillMaxSize(0.9f)
                                 .align(Alignment.Center), shape = CircleShape, colors = CardDefaults.cardColors(containerColor = ProfilebackgroundColor)) {
                                 Box (modifier = Modifier.fillMaxSize()){
-                                    IconButton(modifier = Modifier.align(Alignment.Center),onClick = { navController.navigate(Graph.PROFILE) }) {
+                                    IconButton(modifier = Modifier.align(Alignment.Center),onClick = { navController.navigate(Graph.PROFILE){
+
+                                        popUpTo(navController.graph.findStartDestination().id)
+                                        launchSingleTop = true
+                                    } }) {
                                         Icon(modifier = Modifier
                                             .padding(2.dp)
                                             .fillMaxSize(),tint = ProfileColor,imageVector = ProfileIcon, contentDescription = "")
@@ -151,7 +159,11 @@ fun BottomBar(navController: NavHostController){
                                 .fillMaxSize(0.9f)
                                 .align(Alignment.Center), shape = CircleShape, colors = CardDefaults.cardColors(containerColor = SettingBackgroundColor)) {
                                 Box (modifier = Modifier.fillMaxSize()){
-                                    IconButton(modifier = Modifier.align(Alignment.Center),onClick = { navController.navigate(Graph.SETTING)}) {
+                                    IconButton(modifier = Modifier.align(Alignment.Center),onClick = { navController.navigate(Graph.SETTING){
+
+                                        popUpTo(navController.graph.findStartDestination().id)
+                                        launchSingleTop = true
+                                    } }) {
                                         Icon(modifier = Modifier
                                             .padding(2.dp)
                                             .fillMaxSize(),tint = SettingColor, imageVector = SettingIcon, contentDescription = "")

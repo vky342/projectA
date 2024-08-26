@@ -1,19 +1,24 @@
 package com.vky342.projecta.screens
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Call
+import androidx.compose.material.icons.filled.DateRange
+import androidx.compose.material.icons.filled.Face
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
@@ -84,28 +89,61 @@ fun ProfileScreen() {
                             Box (modifier = Modifier
                                 .fillMaxSize()
                                 .weight(1f)) {
-                                Text(text = "Name : ", fontSize = 18.sp, color = Color.White, modifier = Modifier.align(Alignment.CenterEnd))
+                                Row (modifier = Modifier
+                                    .wrapContentSize()
+                                    .align(Alignment.CenterEnd)) {
+                                    Icon(imageVector = Icons.Default.Person, tint = Color.Cyan,modifier = Modifier.align(Alignment.CenterVertically), contentDescription = "")
+                                    Spacer(modifier = Modifier.fillMaxHeight().width(10.dp))
+                                    Text(text = "Name : ", fontSize = 18.sp, color = Color.White, modifier = Modifier.align(Alignment.CenterVertically))
+
+                                }
 
                             }
                             //age
                             Box (modifier = Modifier
                                 .fillMaxSize()
                                 .weight(1f)) {
-                                Text(text = "Age : ", fontSize = 18.sp, color = Color.White, modifier = Modifier.align(Alignment.CenterEnd))
+                                Row (modifier = Modifier
+                                    .wrapContentSize()
+                                    .align(Alignment.CenterEnd)) {
+                                    Icon(imageVector = Icons.Default.DateRange, tint = Color.Cyan, modifier = Modifier.align(Alignment.CenterVertically), contentDescription = "")
+                                    Spacer(modifier = Modifier.fillMaxHeight().width(10.dp))
+                                    Text(text = "Age : ", fontSize = 18.sp, color = Color.White, modifier = Modifier.align(Alignment.CenterVertically))
+
+                                }
 
                             }
                             //gender
                             Box (modifier = Modifier
                                 .fillMaxSize()
                                 .weight(1f)) {
-                                Text(text = "Gender : ", fontSize = 18.sp, color = Color.White, modifier = Modifier.align(Alignment.CenterEnd))
+                                Row (modifier = Modifier
+                                    .wrapContentSize()
+                                    .align(Alignment.CenterEnd)) {
+
+                                    Icon(imageVector = Icons.Default.Face, tint = Color.Cyan, modifier = Modifier.align(Alignment.CenterVertically), contentDescription = "")
+                                    Spacer(modifier = Modifier.fillMaxHeight().width(10.dp))
+
+                                    Text(text = "Gender : ", fontSize = 18.sp, color = Color.White, modifier = Modifier.align(Alignment.CenterVertically))
+
+                                }
+
 
                             }
                             //contact
                             Box (modifier = Modifier
                                 .fillMaxSize()
                                 .weight(1f)) {
-                                Text(text = "Contact : ", fontSize = 18.sp, color = Color.White, modifier = Modifier.align(Alignment.CenterEnd))
+                                Row (modifier = Modifier
+                                    .wrapContentSize()
+                                    .align(Alignment.CenterEnd)) {
+
+                                    Icon(imageVector = Icons.Default.Call, tint = Color.Cyan, modifier = Modifier.align(Alignment.CenterVertically), contentDescription = "")
+                                    Spacer(modifier = Modifier.fillMaxHeight().width(10.dp))
+
+                                    Text(text = "Contact : ", fontSize = 18.sp, color = Color.White, modifier = Modifier.align(Alignment.CenterVertically))
+                                }
+
 
                             }
                             

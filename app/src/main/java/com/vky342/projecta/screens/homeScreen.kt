@@ -1,7 +1,12 @@
 package com.vky342.projecta.screens
 
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -21,17 +26,23 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.draw.paint
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -50,10 +61,47 @@ fun HomeScreenPreview () {
     val (height, width) = LocalConfiguration.current.run { screenHeightDp.dp to screenWidthDp.dp}
     val topPadding = height.value * 0.1
 
+    // State to track the current elevation of the card
+    var isPressed by remember { mutableStateOf(false) }
+
+    // Animate elevation based on whether the card is pressed or not
+    val elevation: Dp by animateDpAsState(
+        targetValue = if (isPressed) 30.dp else 4.dp
+    )
+
+    // State to control the color of the card
+    var isToggled by remember { mutableStateOf(false) }
+
+    // Animated color based on the isToggled state
+    val backgroundColor by animateColorAsState(
+        targetValue = if (isToggled) Color.Red else Color.Cyan,
+        animationSpec = tween(durationMillis = 500) // Customize duration as needed
+    )
+
+    var SOScounternumber by remember {
+
+        mutableStateOf(0)
+    }
+
+    fun SOScounterIncrese() {
+
+        if (SOScounternumber < 4){
+            isToggled = false
+            SOScounternumber += 1
+        }
+        if (SOScounternumber == 4) {
+            isToggled = true
+            SOScounternumber = 0
+        }
+
+    }
+
+
+
     Column (modifier = Modifier
         .fillMaxSize()
         .paint(
-            painter = painterResource(id = R.drawable.background),
+            painter = painterResource(id = if (isToggled) R.drawable.backgroundredbacg else R.drawable.background),
             contentScale = ContentScale.FillBounds
         )){
 
@@ -169,7 +217,9 @@ fun HomeScreenPreview () {
                     }
                     
                 }
-                val brush = Brush.radialGradient(listOf(Color.Cyan, Color.Transparent))
+                val brush= Brush.radialGradient(listOf(Color.Cyan, Color.Transparent))
+                val brush2 = Brush.radialGradient(listOf(Color.Red, Color.Transparent))
+
                 Box (modifier = Modifier
                     .fillMaxSize(0.85f)
                     .align(Alignment.CenterHorizontally)) {
@@ -177,17 +227,35 @@ fun HomeScreenPreview () {
                         .height((height.value * 0.27).dp)
                         .width((height.value * 0.27).dp)
                         .align(Alignment.Center)
-                        .background(brush, shape = CircleShape),
+                        .background(
+                            if (isToggled) brush2 else brush,
+                            shape = CircleShape
+                        ),
                         shape = CircleShape,
                         colors = CardDefaults.cardColors().copy(containerColor = Color.Transparent)) {
                         Box (modifier = Modifier
                             .fillMaxSize()
                             .clipToBounds()
                             .background(color = Color.Transparent)) {
-                            Card (modifier = Modifier
+                            Card (onClick = {
+                                SOScounterIncrese()
+                            },modifier = Modifier
+                                .pointerInput(Unit) {
+                                    detectTapGestures(
+                                        onPress = {
+                                            isPressed = true // Elevate the card on press
+                                            tryAwaitRelease() // Wait for the release event
+                                            isPressed =
+                                                false // Return to default elevation after release
+                                        },
+                                        onTap = {
+                                            // You can handle click event here if needed
+                                        }
+                                    )
+                                }
                                 .height((height.value * 0.18).dp)
                                 .width((height.value * 0.18).dp)
-                                .align(Alignment.Center), elevation = CardDefaults.cardElevation(defaultElevation = 2.5.dp),colors = CardDefaults.cardColors().copy(containerColor = Color.Cyan),shape = CircleShape) {
+                                .align(Alignment.Center), elevation = CardDefaults.cardElevation(defaultElevation = elevation),colors = CardDefaults.cardColors().copy(containerColor = backgroundColor),shape = CircleShape) {
                                 
                                 Box (modifier = Modifier
                                     .fillMaxSize()
