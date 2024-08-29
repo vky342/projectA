@@ -51,13 +51,13 @@ import com.vky342.projecta.ui.theme.navbarGreye
 
 @Composable
 fun HomeScreen (navController: NavController) {
-    HomeScreenPreview()
+    HomeScreenPreview(navController)
 
 }
 
-@Preview
+
 @Composable
-fun HomeScreenPreview () {
+fun HomeScreenPreview (navController: NavController) {
     val (height, width) = LocalConfiguration.current.run { screenHeightDp.dp to screenWidthDp.dp}
     val topPadding = height.value * 0.1
 
@@ -158,7 +158,7 @@ fun HomeScreenPreview () {
                         Box (modifier = Modifier
                             .fillMaxHeight()
                             .weight(1f)){
-                            Card (modifier = Modifier
+                            Card (onClick = {navController.navigate("info")},modifier = Modifier
                                 .height((height.value * 0.08).dp)
                                 .width((height.value * 0.08).dp)
                                 .align(Alignment.Center),

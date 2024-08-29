@@ -31,6 +31,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -191,7 +193,7 @@ fun topAppBar(){
         .fillMaxWidth()
         .background(color = Color.Transparent)
         .height(topPadding.dp)){
-        Text(fontSize = 48.sp, color = Color.Black, fontWeight = FontWeight(500),text = "APP", modifier = Modifier
+        Text(fontSize = 35.sp, color = Color.Black, fontFamily = FontFamily.Serif,fontWeight = FontWeight(500),text = "AGRATAS", modifier = Modifier
             .align(Alignment.Center)
             .padding(top = statusBar.dp))
     }
